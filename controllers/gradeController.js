@@ -62,14 +62,14 @@ const findOne = async (req, res) => {
 const update = async (req, res) => {
   if (!req.body) {
     return res.status(400).send({
-      message: "Dados para atualizacao vazio",
+      message: "Sem dados para atualizacao!",
     });
   }
 
   const id = req.params.id;
 
   try {
-    const data = await Grade.findByIdAndUpdate(id, req.body);
+    await Grade.findByIdAndUpdate(id, req.body);
     res.status(200).send({ message: "Grade atualizado com sucesso" });
 
     logger.info(`PUT /grade - ${id} - ${JSON.stringify(req.body)}`);
@@ -83,7 +83,11 @@ const remove = async (req, res) => {
   const id = req.params.id;
 
   try {
-    res.send({ message: "Grade excluido com sucesso" });
+    const data = await Grade.findByIdAndDelete(id);
+
+    if (!data)
+      res.status(200).send("Grade não encontrada. Verifique os parâmetros!");
+    res.status(200).send({ message: `Grade excluido com sucesso: ${data}` });
 
     logger.info(`DELETE /grade - ${id}`);
   } catch (error) {
