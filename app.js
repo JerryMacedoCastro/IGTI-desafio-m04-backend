@@ -25,7 +25,12 @@ const app = express();
 //define o dominio de origem para consumo do servico
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors());
+app.use(
+  cors({
+    rigin: "http://localhost:8081/",
+    optionsSuccessStatus: 200,
+  })
+);
 
 app.use(gradeRouter);
 
