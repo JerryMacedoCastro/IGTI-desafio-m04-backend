@@ -12,6 +12,7 @@ const create = async (req, res) => {
       value: req.body.value,
     });
 
+    //Criando registros
     const data = await grade.save();
 
     res.status(200).send(`${data.id} criado!`);
