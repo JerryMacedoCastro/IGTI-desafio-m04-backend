@@ -98,12 +98,11 @@ const remove = async (req, res) => {
   }
 };
 
-const removeAll = async (req, res) => {
-  const id = req.params.id;
-
+const removeAll = async (_req, res) => {
   try {
+    const data = await Grade.deleteMany({});
     res.send({
-      message: `Grades excluidos`,
+      message: `Removidos: ${data}`,
     });
     logger.info(`DELETE /grade`);
   } catch (error) {
