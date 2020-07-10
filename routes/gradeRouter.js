@@ -1,6 +1,7 @@
 import express from "express";
 import controller from "../controllers/gradeController.js";
 import cors from "cors";
+
 const app = express();
 
 app.post("/grade/", cors(), controller.create);
